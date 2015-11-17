@@ -262,7 +262,8 @@ readtrack(void)		 /* read a track chunk */
 		case 0xff:			/* meta event */
 
 			type = egetc();
-			lookfor = Mf_toberead - readvarinum();
+			lookfor = readvarinum();
+			lookfor = Mf_toberead - lookfor;
 			msginit();
 
 			while ( Mf_toberead > lookfor )
@@ -273,7 +274,8 @@ readtrack(void)		 /* read a track chunk */
 
 		case 0xf0:		/* start of system exclusive */
 
-			lookfor = Mf_toberead - readvarinum();
+			lookfor = readvarinum();
+			lookfor = Mf_toberead - lookfor;
 			msginit();
 			msgadd(0xf0);
 
@@ -288,7 +290,8 @@ readtrack(void)		 /* read a track chunk */
 
 		case 0xf7:	/* sysex continuation or arbitrary stuff */
 
-			lookfor = Mf_toberead - readvarinum();
+			lookfor = readvarinum();
+			lookfor = Mf_toberead - lookfor;
 
 			if ( ! sysexcontinue )
 				msginit();

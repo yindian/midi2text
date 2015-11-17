@@ -419,11 +419,11 @@ char *p; int leng;
 			pos += 2;
 			break;
 		default:
-			if (isprint(c)) {
+			if (isprint(c) && isascii(c)) {
 				putchar(c);
 				++pos;
 			} else {
-				printf("\\x%02x" , c);
+				printf("\\x%02x" , (unsigned char)((signed char)c));
 				pos += 4;
 			}
 		}
